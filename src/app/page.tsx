@@ -48,10 +48,11 @@ export default function Home() {
       setDrawnName(currentName); // Update the displayed name
     }
 
-    // After the animation, set the final drawn name
+    // After the animation, set the final drawn name and remove it from the list
     setTimeout(() => {
       setDrawnName(currentName);
       setIsDrawing(false);
+      setNames(prevNames => prevNames.filter(name => name !== currentName)); // Remove the drawn name
     }, 500);
   }, [names, isDrawing]);
 
