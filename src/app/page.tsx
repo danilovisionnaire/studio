@@ -53,6 +53,7 @@ export default function Home() {
     setTimeout(() => {
       setDrawnName(currentName);
       setIsDrawing(false);
+       setNames(prevNames => prevNames.filter(name => name !== currentName));
     }, 500);
   }, [names, isDrawing]);
 
