@@ -68,20 +68,20 @@ export default function Home() {
     <div className="flex flex-col items-center justify-start min-h-screen py-24 sm:py-32 px-8 sm:px-12">
       <Card className="w-full max-w-md space-y-4">
         <CardHeader>
-          <CardTitle className="text-2xl text-center">Lucky Draw Master</CardTitle>
-          <CardDescription className="text-center">Upload your list of names to start the draw!</CardDescription>
+          <CardTitle className="text-2xl text-center">Mestre do Sorteio</CardTitle>
+          <CardDescription className="text-center">Envie sua lista de nomes para começar o sorteio!</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {!fileUploaded && (
             <>
-              <Label htmlFor="names-file">File Names</Label>
+              <Label htmlFor="names-file">Arquivo de Nomes</Label>
               <Input type="file" accept=".txt" onChange={handleFileChange} id="names-file" />
             </>
           )}
 
           {names.length > 0 && (
             <div className="space-y-2">
-              <h3 className="text-lg font-semibold">Names List:</h3>
+              <h3 className="text-lg font-semibold">Lista de Nomes:</h3>
               <ul className="list-decimal list-inside">
                 {names.map((name, index) => (
                   <li key={index}>{name}</li>
@@ -94,7 +94,7 @@ export default function Home() {
             onClick={handleDrawName}
             disabled={names.length === 0 || isDrawing}
           >
-            Draw Name
+            Sortear Nome
           </Button>
 
           {isDrawing && countdown !== null && (
@@ -106,7 +106,7 @@ export default function Home() {
 
           {drawnName && (
             <div className="text-center mt-4">
-              <h3 className="text-xl font-semibold">The winner is:</h3>
+              <h3 className="text-xl font-semibold">O vencedor é:</h3>
               <p className="text-2xl font-bold text-primary">{drawnName}</p>
             </div>
           )}
@@ -116,7 +116,7 @@ export default function Home() {
       {drawnNamesList.length > 0 && (
         <Card className="w-full max-w-md space-y-4 mt-4">
           <CardHeader>
-            <CardTitle className="text-2xl text-center">Drawn Names</CardTitle>
+            <CardTitle className="text-2xl text-center">Nomes Sorteados</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <ul className="list-decimal list-inside">
@@ -130,5 +130,3 @@ export default function Home() {
     </div>
   );
 }
-
-
