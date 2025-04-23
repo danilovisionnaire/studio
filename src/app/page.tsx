@@ -75,7 +75,7 @@ export default function Home() {
           {names.length > 0 && (
             <div className="space-y-2">
               <h3 className="text-lg font-semibold">Names List:</h3>
-              <ul className="list-disc list-inside">
+              <ul className="list-decimal list-inside">
                 {names.map((name, index) => (
                   <li key={index}>{name}</li>
                 ))}
@@ -123,3 +123,4 @@ export default function Home() {
     </div>
   );
 }
+
