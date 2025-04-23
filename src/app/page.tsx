@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
+import { Circle } from "lucide-react";
 
 export default function Home() {
   const [names, setNames] = useState<string[]>([]);
@@ -84,8 +85,16 @@ export default function Home() {
             onClick={handleDrawName}
             disabled={names.length === 0 || isDrawing}
           >
-            {isDrawing ? (countdown ? `Drawing in ${countdown}...` : "Drawing...") : "Draw Name"}
+            Draw Name
           </Button>
+
+          {isDrawing && countdown !== null && (
+            <div className="relative flex items-center justify-center mt-4">
+              <div className="absolute animate-spin rounded-full border-4 border-t-4 border-accent h-16 w-16" />
+              <span className="text-3xl font-bold text-primary">{countdown}</span>
+            </div>
+          )}
+
           {drawnName && (
             <div className="text-center mt-4">
               <h3 className="text-xl font-semibold">The winner is:</h3>
