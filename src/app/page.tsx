@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
 
 export default function Home() {
   const [names, setNames] = useState<string[]>([]);
@@ -52,7 +53,6 @@ export default function Home() {
     setTimeout(() => {
       setDrawnName(currentName);
       setIsDrawing(false);
-      setNames(prevNames => prevNames.filter(name => name !== currentName)); // Remove the drawn name
     }, 500);
   }, [names, isDrawing]);
 
@@ -64,7 +64,8 @@ export default function Home() {
           <CardDescription className="text-center">Upload your list of names to start the draw!</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Input type="file" accept=".txt" onChange={handleFileChange} />
+        <Label htmlFor="names-file">File Names</Label>
+          <Input type="file" accept=".txt" onChange={handleFileChange} id="names-file"/>
           {names.length > 0 && (
             <div className="space-y-2">
               <h3 className="text-lg font-semibold">Names List:</h3>
