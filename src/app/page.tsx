@@ -14,6 +14,7 @@ export default function Home() {
   const [isDrawing, setIsDrawing] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
   const [drawnNamesList, setDrawnNamesList] = useState<string[]>([]);
+  const [fileUploaded, setFileUploaded] = useState(false);
 
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -27,6 +28,7 @@ export default function Home() {
       const nameList = text.split("\n").map((name) => name.trim()).filter(Boolean);
       setNames(nameList);
       setDrawnName(null); // Clear any previously drawn name
+      setFileUploaded(true); // Set file uploaded state to true
     };
     reader.readAsText(file);
   }, []);
@@ -70,8 +72,13 @@ export default function Home() {
           <CardDescription className="text-center">Upload your list of names to start the draw!</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Label htmlFor="names-file">File Names</Label>
-          <Input type="file" accept=".txt" onChange={handleFileChange} id="names-file" />
+          {!fileUploaded && (
+            <>
+              <Label htmlFor="names-file">File Names</Label>
+              <Input type="file" accept=".txt" onChange={handleFileChange} id="names-file" />
+            </>
+          )}
+
           {names.length > 0 && (
             <div className="space-y-2">
               <h3 className="text-lg font-semibold">Names List:</h3>
@@ -112,7 +119,7 @@ export default function Home() {
             <CardTitle className="text-2xl text-center">Drawn Names</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <ul className="list-disc list-inside">
+            <ul className="list-decimal list-inside">
               {drawnNamesList.map((name, index) => (
                 <li key={index}>{name}</li>
               ))}
@@ -123,4 +130,5 @@ export default function Home() {
     </div>
   );
 }
+
 
