@@ -13,6 +13,7 @@ export default function Home() {
   const [drawnName, setDrawnName] = useState<string | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
+  const [drawnNamesList, setDrawnNamesList] = useState<string[]>([]);
 
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -54,6 +55,7 @@ export default function Home() {
         const finalName = names[Math.floor(Math.random() * names.length)];
         setDrawnName(finalName);
         setIsDrawing(false);
+        setDrawnNamesList(prev => [...prev, finalName]);
         setNames(prevNames => prevNames.filter(name => name !== finalName));
         setCountdown(null); // Clear countdown
       }
@@ -103,6 +105,21 @@ export default function Home() {
           )}
         </CardContent>
       </Card>
+
+      {drawnNamesList.length > 0 && (
+        <Card className="w-full max-w-md space-y-4 mt-4">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">Drawn Names</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <ul className="list-disc list-inside">
+              {drawnNamesList.map((name, index) => (
+                <li key={index}>{name}</li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
