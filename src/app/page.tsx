@@ -99,7 +99,7 @@ export default function Home() {
 
           {isDrawing && countdown !== null && (
             <div className="relative flex items-center justify-center mt-4">
-              <div className="absolute animate-spin rounded-full border-4 border-t-4 border-accent h-16 w-16" />
+              <div className="absolute animate-spin rounded-full border-4 border-t-4 border-accent h-16 w-16 shadow-md" />
               <span className="text-3xl font-bold text-primary">{countdown}</span>
             </div>
           )}
