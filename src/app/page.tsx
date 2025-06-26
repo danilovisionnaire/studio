@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
-import { Circle } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
   const [names, setNames] = useState<string[]>([]);
@@ -66,6 +66,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen py-24 sm:py-32 px-8 sm:px-12">
+      <div className="w-full flex justify-end mb-4">
+        <ThemeToggle />
+      </div>
       <Card className="w-full max-w-md space-y-4">
         <CardHeader>
           <CardTitle className="text-2xl text-center">Mestre do Sorteio</CardTitle>
