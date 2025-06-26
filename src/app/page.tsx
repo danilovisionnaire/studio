@@ -15,22 +15,52 @@ export default function Home() {
   const [countdown, setCountdown] = useState<number | null>(null);
   const [drawnNamesList, setDrawnNamesList] = useState<string[]>([]);
   const [fileUploaded, setFileUploaded] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
-  const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) {
-      return;
-    }
-
+  const handleFile = useCallback((file: File) => {
     const reader = new FileReader();
     reader.onload = (event) => {
       const text = event.target?.result as string;
-      const nameList = text.split("\n").map((name) => name.trim()).filter(Boolean);
+      const nameList = text
+        .split("\n")
+        .map((name) => name.trim())
+        .filter(Boolean);
       setNames(nameList);
-      setDrawnName(null); // Clear any previously drawn name
-      setFileUploaded(true); // Set file uploaded state to true
+      setDrawnName(null);
+      setFileUploaded(true);
     };
     reader.readAsText(file);
+  }, []);
+
+  const handleFileChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        handleFile(file);
+      }
+    },
+    [handleFile]
+  );
+
+  const handleDrop = useCallback(
+    (e: React.DragEvent<HTMLLabelElement>) => {
+      e.preventDefault();
+      setIsDragging(false);
+      const file = e.dataTransfer.files?.[0];
+      if (file) {
+        handleFile(file);
+      }
+    },
+    [handleFile]
+  );
+
+  const handleDragOver = useCallback((e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback(() => {
+    setIsDragging(false);
   }, []);
 
   const handleDrawName = useCallback(() => {
@@ -76,10 +106,27 @@ export default function Home() {
         </CardHeader>
         <CardContent className="space-y-4">
           {!fileUploaded && (
-            <>
-              <Label htmlFor="names-file">Arquivo de Nomes</Label>
-              <Input type="file" accept=".txt" onChange={handleFileChange} id="names-file" />
-            </>
+            <Label
+              htmlFor="names-file"
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              className={cn(
+                "flex flex-col items-center justify-center gap-2 border-2 border-dashed border-input rounded-md p-4 text-sm cursor-pointer",
+                isDragging && "bg-accent/20"
+              )}
+            >
+              <span className="text-muted-foreground">
+                Arraste e solte o arquivo aqui ou clique para selecionar
+              </span>
+              <Input
+                type="file"
+                accept=".txt"
+                onChange={handleFileChange}
+                id="names-file"
+                className="hidden"
+              />
+            </Label>
           )}
 
           {names.length > 0 && (
