@@ -104,6 +104,19 @@ export default function Home() {
     }
   }, [isDrawing, countdown, names]);
 
+  useEffect(() => {
+    if (drawnName) {
+      import("canvas-confetti").then((module) => {
+        const confetti = module.default;
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      });
+    }
+  }, [drawnName]);
+
   return (
     <div className="flex flex-col items-center justify-start min-h-screen py-24 sm:py-32 px-4 sm:px-6 bg-gradient-to-b from-teal-50 via-white to-teal-100 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
       <div className="w-full flex justify-end mb-4">
