@@ -105,11 +105,11 @@ export default function Home() {
   }, [isDrawing, countdown, names]);
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen py-24 sm:py-32 px-8 sm:px-12">
+    <div className="flex flex-col items-center justify-start min-h-screen py-24 sm:py-32 px-4 sm:px-6 bg-gradient-to-b from-teal-50 via-white to-teal-100 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
       <div className="w-full flex justify-end mb-4">
         <ThemeToggle />
       </div>
-      <Card className="w-full max-w-md space-y-4">
+      <Card className="w-full max-w-md space-y-4 shadow-lg border-none">
         <CardHeader>
           <CardTitle className="text-2xl text-center">Mestre do Sorteio</CardTitle>
           <CardDescription className="text-center">Envie sua lista de nomes para começar o sorteio!</CardDescription>
@@ -150,7 +150,10 @@ export default function Home() {
             </div>
           )}
           <Button
-            className={cn("w-full bg-accent text-primary-foreground hover:bg-accent-foreground hover:text-accent", isDrawing ? "cursor-not-allowed opacity-75" : "")}
+            className={cn(
+              "w-full text-white bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600",
+              isDrawing ? "cursor-not-allowed opacity-75" : ""
+            )}
             onClick={handleDrawName}
             disabled={names.length === 0 || isDrawing}
           >
@@ -165,7 +168,7 @@ export default function Home() {
           )}
 
           {drawnName && (
-            <div className="text-center mt-4">
+            <div className="text-center mt-4 animate-fade-in">
               <h3 className="text-xl font-semibold">O vencedor é:</h3>
               <p className="text-2xl font-bold text-primary">{drawnName}</p>
             </div>
@@ -174,7 +177,7 @@ export default function Home() {
       </Card>
 
       {drawnNamesList.length > 0 && (
-        <Card className="w-full max-w-md space-y-4 mt-4">
+        <Card className="w-full max-w-md space-y-4 mt-4 shadow-lg border-none">
           <CardHeader>
             <CardTitle className="text-2xl text-center">Nomes Sorteados</CardTitle>
           </CardHeader>
