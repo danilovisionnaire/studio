@@ -3,7 +3,14 @@
 import { useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -173,12 +180,15 @@ export default function Home() {
             Sortear Nome
           </Button>
 
-          {isDrawing && countdown !== null && (
-            <div className="relative flex items-center justify-center mt-4">
-              <div className="absolute animate-spin rounded-full border-4 border-t-4 border-accent h-16 w-16 shadow-md" />
-              <span className="text-3xl font-bold text-primary">{countdown}</span>
-            </div>
-          )}
+          <Dialog open={isDrawing} onOpenChange={() => {}}>
+            <DialogContent className="bg-transparent border-none shadow-none flex items-center justify-center [&>button]:hidden">
+              {countdown !== null && (
+                <span className="text-6xl sm:text-8xl font-bold text-primary animate-pulse">
+                  {countdown}
+                </span>
+              )}
+            </DialogContent>
+          </Dialog>
 
           {drawnName && (
             <div className="text-center mt-4 animate-fade-in">
